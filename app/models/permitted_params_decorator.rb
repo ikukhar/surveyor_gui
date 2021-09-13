@@ -1,5 +1,9 @@
 PermittedParams.class_eval do
 
+  def strong_parameters
+    # ActionController::Parameters in Rails 5 no longer inherit from HashWithIndifferentAccess
+    ActionController::Parameters.new(params.to_enum.to_h)
+  end
 
   alias_method :base_answer_attributes, :answer_attributes
   def answer_attributes
